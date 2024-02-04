@@ -48,7 +48,7 @@ This is aimed at promoting understanding of vector/matrix calculations
 and algorithms from the\linebreak perspectives of matrix factorizations.
 They include Column-Row ($\bm{CR}$), Gaussian Elimination ($\bm{LU}$),
 Gram-Schmidt Orthogonalization ($\bm{QR}$), Eigenvalues and Diagonalization ($\bm{Q \Lambda Q\transp}$),
-and Singular Value Decomposition ($\bm{U \Sigma V\transp}$).
+and Singular Value Decomposition ($\bm{U \Sigma V\transp}$). All the artworks including this article are maintained in the GitHub repository \url{https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra/}.
 \end{abstract}
 
 \section*{Foreword}
@@ -104,7 +104,7 @@ in $\bm{a}\transp$ and $A\transp$.
 
 Hereafter I point to specific sections of ``Linear Algebra for Everyone" 
 and present graphics which illustrate the concepts with short names
-in colored circles.
+in gray circles.
 
 \begin{itemize}
   \item Sec. 1.1 (p.2) Linear combination and dot products
@@ -141,6 +141,8 @@ At first, you learn (Mv1). But when you get used to viewing it as (Mv2),
 you can understand $A\bm{x}$ as a linear combination of the columns of $A$.
 Those products fill the column space of $A$  denoted as $\mathbf{C}(A)$.
 The solution space of $A\bm{x}=\bm{0}$ is the nullspace of $A$ denoted as $\mathbf{N}(A)$.
+To understand the nullspace, let the right-hand side of (Mv1) be $\bm{0}$
+and see all the dot products are zero.
 
 Also, (vM1) and (vM2) shows the same patterns for a row vector times a matrix.
 
@@ -152,7 +154,7 @@ Also, (vM1) and (vM2) shows the same patterns for a row vector times a matrix.
 
 
 The products fill the row space of $A$ denoted as $\mathbf{C}(A\transp)$.
-The solution space of $yA=0$ is the left-nullspace of $A$ denoted as $\mathbf{N}(A\transp)$.
+The solution space of $yA=0$ is the left-nullspace of $A$, denoted as $\mathbf{N}(A\transp)$.
 
 
 The four subspaces consists of $\mathbf{N}(A)$ + $\mathbf{C}(A\transp)$ 
@@ -167,7 +169,7 @@ $\mathbf{N}(A\transp)$ + $\mathbf{C}(A)$ in $\mathbb{R}^m$
 
 \begin{figure}[H]
   \centering
-  \includegraphics[keepaspectratio, width=8cm]{4-Subspaces.eps}
+  \includegraphics[width=8cm]{4-Subspaces.eps}
   \caption{The Four Subspaces}
 \end{figure}
 
@@ -382,7 +384,7 @@ and all the rows of $A$ are linear combinations of the two rows of $R$.
 \subsection{$\boldsymbol{A=LU}$}
 
 Solving $A\bm{x}=\bm{b}$  via Gaussian elimination can be expressed as an $LU$ factorization.
-Usually, you apply elementary row operation matrices ($E$) from left of $A$ to make upper trianglar $U$.
+Usually, you apply elementary row operation matrices ($E$) to $A$ to make upper trianglar $U$.
 
 \begin{align*}
   EA &= U\\
@@ -456,7 +458,7 @@ This leaves $A_2$. Do this recursively and decompose $A$ into the sum of rank 1 
 \caption{$LU$ rebuilds $A$}
 \end{figure}
 
-To rebuild $A$ from $L$ times $U$ is easy.
+To rebuild $A$ from $L$ times $U$, use column-row multiplication.
 
 \subsection{$\boldsymbol{A=QR}$}
 
@@ -466,9 +468,9 @@ $A=QR$ changes the columns of $A$ into perpendicular columns of $Q$, keeping $\b
   \item Sec.4.4 Orthogonal matrices and Gram-Schmidt (p.165)
 \end{itemize}
 
-In Gram-Schmidt, the normalized $\bm{a}_1$ is picked up as $\bm{q}_1$ first and then
-$\bm{a}_2$ is adjusted to be perpendicular to $\bm{q}_1$ to create $\bm{q}_2$, and this
-procedure goes on.
+In Gram-Schmidt, the normalized $\bm{a}_1$ is $\bm{q}_1$.
+Then $\bm{a}_2$ is adjusted to be perpendicular to $\bm{q}_1$ to create $\bm{q}_2$.
+This procedure gives:
 
 \begin{align*}
   \bm{q}_1 &= \bm{a}_1/||\bm{a}_1|| \\
@@ -476,7 +478,7 @@ procedure goes on.
   \bm{q}_3 &= \bm{a}_3 - (\bm{q}_1\transp \bm{a}_3)\bm{q}_1 - (\bm{q}_2\transp \bm{a}_3)\bm{q}_2, \quad \bm{q}_3 = \bm{q}_3/||\bm{q}_3||
 \end{align*}
 
-or you can write with $r_{ij} = \bm{q}_i\transp \bm{a}_j$:
+In the reverse direction, letting $r_{ij} = \bm{q}_i\transp \bm{a}_j$ and you get:
 
 \begin{align*}
   \bm{a}_1 &= r_{11}\bm{q}_1\\
@@ -484,7 +486,7 @@ or you can write with $r_{ij} = \bm{q}_i\transp \bm{a}_j$:
   \bm{a}_3 &= r_{13}\bm{q}_1 + r_{23} \bm{q}_2 + r_{33} \bm{q}_3
 \end{align*}
 
-The original $A$ becomes $QR$: orthogonal times triangular.
+The original $A$ becomes $QR$: orthogonal $Q$ times upper triangular $R$.
 
 \begin{gather*}
   A = 
@@ -508,8 +510,7 @@ The original $A$ becomes $QR$: orthogonal times triangular.
   \caption{$A=QR$}
 \end{figure}
 
-The column vectors of $A$ can be adjusted into an orthonormal set: the column vectors of $Q$.
-Each column vector of $A$ can be rebuilt from $Q$ and the upper triangular matrix $R$ .
+Each column vector of $A$ can be rebuilt from $Q$ and $R$ .
 
 See Pattern 1 (P1) again for the graphic interpretation.
 
@@ -599,12 +600,11 @@ Note that Pattern 4 (P4) is working for the decomposition.
 
 
 \begin{itemize}
-  \item Sec.7.1 (p.259) Singular Values and Singular Vecrtors
+  \item Sec.7.1 (p.259) Singular Values and Singular Vectors
 \end{itemize}
 
-All matrices including rectangular ones have a singular value decomposition (SVD).
+Every matrix (including rectangular one) has a singular value decomposition (SVD).
 $A=U \Sigma V\transp$ has the singular vectors of $A$ in $U$ and $V$.
-And its singular values line up in $\Sigma$'s diagonal elements.
 The following illustrates the 'reduced' SVD.
 
 
@@ -690,20 +690,27 @@ traditional data science and machine learning. An important part of the matrix w
   \item
   Gilbert Strang(2016), \emph{Introduction to Linear Algebra},Wellesley Cambridge Press, 5th ed.,\\
   \href{http://math.mit.edu/linearalgebra}{http://math.mit.edu/linearalgebra}
-  \item Kenji Hiranabe(2021), \emph{Map of Eigenvalues}, An Agile Way(blog),\\
-  \href{https://anagileway.com/2021/10/01/map-of-eigenvalues/}{https://anagileway.com/2021/10/01/map-of-eigenvalues/}\\
+  \item Kenji Hiranabe(2021), \emph{Map of Eigenvalues}, Slidedeck,\\
+  \url{https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra/blob/main/MapofEigenvalues.pdf}\\
   \begin{figure}[H]
     \centering
     \includegraphics[keepaspectratio, width=\linewidth]{MapofEigenvalues.eps}
     \caption{Map of Eigenvalues}
   \end{figure}
-  \item Kenji Hiranabe(2020), \emph{Matrix World}, An Agile Way(blog),\\
-  \href{https://anagileway.com/2020/09/29/matrix-world-in-linear-algebra-for-everyone/}{https://anagileway.com/2020/09/29/matrix-world-in-linear-algebra-for-everyone/}
+  \item Kenji Hiranabe(2020), \emph{Matrix World}, Slidedeck,\\
+  \url{https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra/blob/main/MatrixWorld.pdf}\\
   \begin{figure}[H]
     \centering
     \includegraphics[keepaspectratio, width=\linewidth]{MatrixWorld.eps}
     \caption{Matrix World}
   \end{figure}
+  \item Gilbert Strang, artwork by Kenji Hiranabe, \emph{The Four Subspaces and the solutions to $A\bm{x}=\bm{b}$}\\
+  \begin{figure}[H]
+    \centering
+    \includegraphics[keepaspectratio]{TheFourSubspaces.eps}
+    \caption{The Four Subspaces and the solutions to $A\bm{x}=\bm{b}$}
+  \end{figure}
+
 \end{enumerate}
 
 \end{document}
